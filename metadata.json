@@ -1,0 +1,6 @@
+{
+  "name": "غرفة التحقيق 404",
+  "description": "لعبة تحقيق ورعب نفسي ثلاثية الأبعاد من منظور الشخص الأول بمواد PBR وصوتيات توليدية بالكامل.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
