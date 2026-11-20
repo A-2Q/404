@@ -1,4 +1,5 @@
 import React from 'react';
+import { getDesktopBridge } from '../game/desktopBridge';
 
 interface TitleScreenProps {
   muted: boolean;
@@ -7,6 +8,7 @@ interface TitleScreenProps {
 }
 
 export const TitleScreen: React.FC<TitleScreenProps> = ({ muted, onStart, onToggleMute }) => {
+  const desktop = getDesktopBridge();
   return (
     <div
       className="fixed inset-0 z-20 flex flex-col justify-between p-6 sm:p-10 pointer-events-none"
@@ -20,27 +22,45 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({ muted, onStart, onTogg
         <div className="font-mono-code text-xs tracking-[0.22em] text-[#b39869]/85 uppercase">
           CASE FILE // 404
         </div>
-        <button
-          type="button"
-          onClick={(e) => {
-            e.currentTarget.blur();
-            onToggleMute();
-          }}
-          aria-label={muted ? 'تشغيل الصوت' : 'كتم الصوت'}
-          className="pointer-events-auto iron-btn flex h-10 w-10 items-center justify-center rounded-sm cursor-pointer"
-        >
-          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-            <path d="M11 5L6 9H3v6h3l5 4V5z" />
-            {muted ? (
-              <path d="M22 9l-6 6M16 9l6 6" stroke="#c95449" />
-            ) : (
-              <>
-                <path d="M15.5 8.5a5 5 0 0 1 0 7" />
-                <path d="M18.5 5.5a9 9 0 0 1 0 13" />
-              </>
-            )}
-          </svg>
-        </button>
+        <div className="flex items-center gap-2">
+          {desktop && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.currentTarget.blur();
+                void desktop.toggleFullscreen();
+              }}
+              aria-label="تبديل ملء الشاشة (F11)"
+              title="ملء الشاشة (F11)"
+              className="pointer-events-auto iron-btn flex h-10 w-10 items-center justify-center rounded-sm cursor-pointer"
+            >
+              <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+              </svg>
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.currentTarget.blur();
+              onToggleMute();
+            }}
+            aria-label={muted ? 'تشغيل الصوت' : 'كتم الصوت'}
+            className="pointer-events-auto iron-btn flex h-10 w-10 items-center justify-center rounded-sm cursor-pointer"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <path d="M11 5L6 9H3v6h3l5 4V5z" />
+              {muted ? (
+                <path d="M22 9l-6 6M16 9l6 6" stroke="#c95449" />
+              ) : (
+                <>
+                  <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+                  <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+                </>
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Asymmetric Right-Third Title Lockup over Calm Negative Space */}
@@ -149,6 +169,18 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({ muted, onStart, onTogg
               <path d="M5 12h14M13 5l7 7-7 7" />
             </svg>
           </button>
+          {desktop && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.currentTarget.blur();
+                void desktop.quitApp();
+              }}
+              className="iron-btn px-5 py-3.5 rounded-sm text-sm font-bold tracking-wide cursor-pointer"
+            >
+              خروج إلى سطح المكتب
+            </button>
+          )}
         </div>
       </div>
 

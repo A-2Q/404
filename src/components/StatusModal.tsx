@@ -1,4 +1,5 @@
 import React from 'react';
+import { getDesktopBridge } from '../game/desktopBridge';
 import type { RunStats } from '../game/types';
 
 interface StatusModalProps {
@@ -23,6 +24,7 @@ export const StatusModal: React.FC<StatusModalProps> = ({
   onTitle,
 }) => {
   const isVictory = variant === 'victory';
+  const desktop = getDesktopBridge();
 
   return (
     <div
@@ -101,6 +103,16 @@ export const StatusModal: React.FC<StatusModalProps> = ({
           >
             العودة إلى القائمة الرئيسية
           </button>
+
+          {desktop && (
+            <button
+              type="button"
+              onClick={() => void desktop.quitApp()}
+              className="iron-btn w-full py-2.5 rounded-sm text-sm font-bold cursor-pointer text-[#e2857b]"
+            >
+              خروج إلى سطح المكتب
+            </button>
+          )}
         </div>
       </div>
     </div>

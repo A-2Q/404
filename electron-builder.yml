@@ -1,0 +1,36 @@
+appId: com.room404.investigation
+productName: Investigation Room 404
+copyright: Investigation Room 404
+asar: true
+compression: maximum
+
+directories:
+  output: release
+
+files:
+  - dist/**/*
+  - electron/**/*
+  - package.json
+  - "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}"
+  - "!**/*.test.ts"
+
+win:
+  target:
+    - target: portable
+      arch:
+        - x64
+    - target: nsis
+      arch:
+        - x64
+  artifactName: "InvestigationRoom404-${version}-${arch}-${target}.${ext}"
+  requestedExecutionLevel: asInvoker
+
+portable:
+  artifactName: "InvestigationRoom404-Portable-${arch}.exe"
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: "Investigation Room 404"
