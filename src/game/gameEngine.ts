@@ -71,7 +71,7 @@ export class Room404Engine {
   private lastPointerY = 0;
 
   // Player state
-  private playerPos = new THREE.Vector3(0, EYE_HEIGHT, 2.38);
+  private playerPos = new THREE.Vector3(0, EYE_HEIGHT, 2.58);
   private yaw = 0; // 0 looks along -Z (toward desk & moonlit window)
   private pitch = -0.07;
   private bobPhase = 0;
@@ -80,7 +80,7 @@ export class Room404Engine {
   private dragLooking = false;
 
   // Flashlight inertial sway state
-  private flashPos = new THREE.Vector3(0.24, EYE_HEIGHT - 0.16, 2.28);
+  private flashPos = new THREE.Vector3(0.24, EYE_HEIGHT - 0.16, 2.48);
   private flashAim = new THREE.Vector3(0, 1.4, -1.0);
 
   // Game State Machine
@@ -678,7 +678,7 @@ export class Room404Engine {
     if (this.activeEvidenceId) {
       this.restoreInspectedEvidence();
     }
-    this.playerPos.set(0, EYE_HEIGHT, 2.38);
+    this.playerPos.set(0, EYE_HEIGHT, 2.58);
     this.yaw = 0;
     this.pitch = -0.07;
     this.bobPhase = 0;
@@ -710,7 +710,7 @@ export class Room404Engine {
     this.audio.setTension(computeTruthTension(0, EVIDENCE_LIST.length));
 
     this.camera.position.copy(this.playerPos);
-    this.flashPos.set(0.24, EYE_HEIGHT - 0.16, 2.28);
+    this.flashPos.set(0.24, EYE_HEIGHT - 0.16, 2.48);
     this.flashAim.set(0, 1.4, -1.0);
   }
 
@@ -921,18 +921,18 @@ export class Room404Engine {
 
   private updateTitleCamera(_dt: number): void {
     const t = this.totalTime * 0.22;
-    // Dramatic atmospheric drift framing the antique desk, swinging brass lamp, and moonlit window in left/center
+    // Dramatic atmospheric drift framing the antique desk, repositioned chair, brass lamp, and moonlit window
     this.camera.position.set(
-      0.85 + Math.sin(t) * 0.65,
-      1.62 + Math.sin(t * 1.4) * 0.06,
-      1.95 + Math.cos(t * 0.7) * 0.3,
+      1.18 + Math.sin(t) * 0.55,
+      1.66 + Math.sin(t * 1.4) * 0.06,
+      2.22 + Math.cos(t * 0.7) * 0.25,
     );
-    this.camera.lookAt(-0.42, 1.08, -0.78);
+    this.camera.lookAt(-0.36, 1.0, -0.45);
 
     // Warm atmospheric fill flashlight beam pointing gently across the desk & torn note
     this.flashlight.intensity = 3.2;
     this.flashlight.position.copy(this.camera.position);
-    this.flashlightTarget.position.set(-0.2, 0.92, -0.55);
+    this.flashlightTarget.position.set(-0.2, 0.92, -0.45);
   }
 
   private updatePlayer(dt: number): void {

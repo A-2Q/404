@@ -930,13 +930,13 @@ export function buildInvestigationRoom(
   enableShadows(lampBaseGroup, true, true);
 
   // =========================================================================
-  // 5. ANTIQUE INTERROGATION CHAIR (BEHIND DESK)
+  // 5. ANTIQUE INTERROGATION CHAIR (PLAYER SIDE, CENTERED FACING DESK DRAWERS)
   // =========================================================================
   const chairGroup = new THREE.Group();
-  chairGroup.position.set(0.1, 0, -1.42);
-  chairGroup.rotation.y = 0.24;
+  chairGroup.position.set(0, 0, 0.76);
+  chairGroup.rotation.y = Math.PI; // Faces -Z directly toward desk & drawers
   roomGroup.add(chairGroup);
-  roomGroup.add(makeContactShadow(textures.evidenceMaps.contactShadow, 0.85, 0.85, 0.1, -1.42, 0.45));
+  roomGroup.add(makeContactShadow(textures.evidenceMaps.contactShadow, 0.85, 0.85, 0, 0.76, 0.45));
 
   const seat = new THREE.Mesh(track(new THREE.BoxGeometry(0.5, 0.045, 0.48)), darkWoodMat);
   seat.position.y = 0.46;
@@ -968,10 +968,10 @@ export function buildInvestigationRoom(
   enableShadows(chairGroup, true, true);
   colliders.push({
     id: 'chair',
-    minX: -0.24,
-    maxX: 0.44,
-    minZ: -1.75,
-    maxZ: -1.1,
+    minX: -0.3,
+    maxX: 0.3,
+    minZ: 0.5,
+    maxZ: 1.04,
   });
 
   // =========================================================================
